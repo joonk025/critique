@@ -16,7 +16,7 @@ export default function CreateAnswer({ navigation }) {
     const nextHandler = () => {
         // fix issue of having to click multiple times
         // passes text state to SendAnswer page
-        navigation.navigate('SendAnswer', { answerText: text });
+        navigation.navigate('SendAnswer', { answerText: text, writer: writer });
     };
 
     return (
@@ -28,13 +28,7 @@ export default function CreateAnswer({ navigation }) {
                     <Text style={styles.qWriter}>posted by {writer}</Text>
                 </View>
 
-                {/* remove this */}
-                <View style={styles.contentBox}>
-                    {/* Question Content Panel */}  
-                    <Text style={styles.contentText}>Question content, prop-drilled</Text>
-                </View>
-
-                <View style={styles.inputBox}>
+                {/* <View style={styles.inputBox}> */}
                     <TextInput 
                         multiline
                         style={styles.innerInputBox}
@@ -42,7 +36,7 @@ export default function CreateAnswer({ navigation }) {
                         placeholderTextColor='white'
                         onChangeText={(input) => setText(input)}
                     />
-                </View>
+                {/* </View> */}
 
                 <View style={styles.buttonsBox}>
                     <TouchableOpacity style={styles.buttons} onPress={backHandler}>
@@ -68,7 +62,7 @@ const styles = StyleSheet.create({
     questionPanel: {
         // flex: 1,
         color: 'white',
-        paddingVertical: 80,
+        paddingVertical: 120,
         backgroundColor: 'black',
         marginBottom: 3,
     },
@@ -83,20 +77,9 @@ const styles = StyleSheet.create({
         fontSize: 10,
         paddingLeft: 10,
     },
-    contentBox: {
-        // flex: 1,
-        paddingBottom: 300,
-        backgroundColor: 'black',
-    },
-    contentText: {
-        color: 'white',
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
-        paddingVertical: 10,
-    },
     inputBox: {
         // flex: 1,
-        paddingVertical: 10,
+        paddingVertical: 180,
         marginTop: 3,
         backgroundColor: 'black',
     },
@@ -105,8 +88,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'black',
         paddingHorizontal:10,
         paddingVertical: 10,
+        height: 400,
         justifyContent: 'flex-start',
-        alignItems: 'flex-start',
+        // alignItems: 'center',
       
     },
     buttonsBox: {
