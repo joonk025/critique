@@ -4,8 +4,22 @@ import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function SendAnswer({ navigation }) {
     const answerText = navigation.getParam('answerText');
-    // const writer = navigation.getParam('writer');
+    
     const [writer, setWriter] = useState('');
+
+    const store = [];
+
+  function randomIdGen() {
+        const num = Math.floor(Math.random() * 7);
+        if (!store.includes(num)) {
+            store.push(num);
+            setWriter(num);
+            return;
+        } else {
+           return randomIdGen();
+        }
+    }
+
 
     const sendAnswer = () => {
         const postObj = {
@@ -36,18 +50,19 @@ export default function SendAnswer({ navigation }) {
                 <Text style={styles.previewText}>"{answerText}"</Text>
             </View>
 
-            <View>
+            <View style={styles.lower}>
                 <Text style={styles.answerAs}>Answer As:</Text>
                 <View style={StyleSheet.buttons}>
                     <TouchableOpacity style={StyleSheet.anon}>
-                        <Text style={styles.anonText} onPress={() => setWriter(2)}>Anonymous</Text>
+                        <Text style={styles.anonText} onPress={randomIdGen}>Anonymous</Text>
                     </TouchableOpacity>
                     <View style={styles.inputContainer}>
                         <TouchableOpacity style={StyleSheet.name}>
                             <TextInput 
                             placeholder={'your name..'}
                             placeholderTextColor='white'
-                            onChangeText={(text) => setWriter(text)} 
+                            color='white'
+                            onChangeText={() => randomIdGen()} 
                             ></TextInput>
                         </TouchableOpacity>
                     </View>
@@ -65,7 +80,8 @@ export default function SendAnswer({ navigation }) {
 
 const styles = StyleSheet.create({
     page: {
-        backgroundColor: 'black'
+        backgroundColor: 'black',
+    
     },
     title: {
         fontWeight: '700',
@@ -89,6 +105,9 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontStyle: "italic",
         fontWeight: '700'
+    },
+    lower: {
+        paddingBottom: 300,
     },
     answerAs: {
         color: 'white',
